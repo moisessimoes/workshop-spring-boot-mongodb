@@ -69,4 +69,18 @@ public class UserResource {
 
 		return ResponseEntity.noContent().build();
 	}
+
+	// ====================================================================================================================
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody UserDTO objDto, @PathVariable String id) {
+
+		User user = userService.fromDTO(objDto);
+		
+		user.setId(id);
+
+		user = userService.update(user);
+
+		return ResponseEntity.noContent().build();
+	}
 }
