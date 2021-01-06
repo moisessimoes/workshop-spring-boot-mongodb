@@ -1,5 +1,6 @@
 package com.moises.workshopmongodb.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,9 +31,20 @@ public class PostService {
 	
 	//====================================================================================================================
 	
-	public List<Post> findByTitle(String title) {
+	public List<Post> findByTitle(String title) { //Consulta simples com query methods e Consulta simples com @Query
 		
 		//return postRepository.findByTitleContainingIgnoreCase(title);
 		return postRepository.searchTitle(title);
+	}
+	
+	
+	//====================================================================================================================
+	
+	
+	public List<Post> fullSearch(String text, Date minDate, Date maxDate) { //Consulta com vários critérios
+		
+		maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
+		
+		return postRepository.fullSearch(text, minDate, maxDate);
 	}
 }
